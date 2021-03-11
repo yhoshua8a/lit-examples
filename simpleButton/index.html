@@ -8,12 +8,14 @@
 </head>
 <body>
     <script type="module" src="./my-button.js"></script>
-    <my-button id="btn" disabled>
-        <p>Lo que sea</p>
-    </my-button>
+
+    <my-button id="btn">Simple</my-button>
+    <my-button class="send">Send</my-button>
+    <my-button class="warning">Warning</my-button>
+    <my-button disabled>Disabled</my-button>
 
     <script>
-        document.querySelector('#div').addEventListener('my-button-click', (e)=>{
+        document.querySelector('#btn').addEventListener('my-button-click', (e)=>{
             console.log("listener click", e.target)
         });
     </script>
