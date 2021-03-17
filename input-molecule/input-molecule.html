@@ -1,0 +1,70 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<dom-module id="input-molecule">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Buscar: [[inputValue]]</h2>
+
+    <input type="text" value="{{inputValue::input}}">
+    <!--En LitElement <input type="text" value="this.inputValue" @input=" (e)=> { this.inputValue = e.target.value}"> -->
+
+    <button on-click="_handleClickButton">[[btnText]]</button>
+    <!-- en LitElement <button @click="this._handleClickButton">Buscar</button> -->
+
+    
+  </template>
+
+  <script>
+    /**
+     * `input-molecule`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class InputMolecule extends Polymer.Element {
+      static get is() { return 'input-molecule'; }
+
+      static get properties() {
+        return {
+          inputValue: {
+            type: String,
+            value: 'busca',
+            observer: '_observerInputValue'
+          },
+          btnText:{
+            type:String,
+            value:'Buscar'
+          }
+        };
+      }
+
+
+      _observerInputValue(newValue, old){
+         console.log('observer input', newValue, old)
+         this.fire('input-molecule-chnage', {newValue, old})
+      }
+
+      _handleClickButton(){
+        console.log("Click", this.inputValue);
+        this.fire('input-molecule-click-button', {})
+      }
+
+      fire(event='input-molecule-default', detail = {}){
+          this.dispatchEvent(new CustomEvent(`${event}`, {
+            bubbles:true,
+            composed:true,
+            detail
+          }))
+      }
+
+    }
+
+    window.customElements.define(InputMolecule.is, InputMolecule);
+  </script>
+</dom-module>
