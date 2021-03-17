@@ -9,10 +9,11 @@
         display: block;
       }
     </style>
-    <h2>Bienvenido!</h2>
+    <h2 id="title">Bienvenido [[user.name]]!</h2>
+    <h4>[[user.email]]</h4>
     <input-molecule></input-molecule>
 
-    <list-component list="[[clientsFilter]]"></list-component>
+    <list-component list="[[accountsFilter]]"></list-component>
   </template>
 
   <script>
@@ -24,45 +25,53 @@
       static get is() { return 'polymer-app'; }
       static get properties() {
         return {
-           clients:{
+           accounts:{
              type:Array,
              value:[
                {
-                 name:'Yhoshua',
+                 name:'BBVA debito',
                  amount:20000,
-                 email:'yhoshua@gmail.com'
+                 yearExpiration:'2022'
                },
                {
-                 name:'David',
+                 name:'BBVA nomina estudiantes',
                  amount:50000,
-                 email:'david@gmail.com'
+                 yearExpiration:'2021'
                },
                {
-                 name:'samuel',
+                 name:'BBVA blue',
                  amount:200000,
-                 email:'samuel@gmail.com'
+                 yearExpiration:'2024'
                },
                {
-                 name:'vladimir',
+                 name:'BBVA gold',
                  amount:70000,
-                 email:'vladimir@gmail.com'
+                 yearExpiration:'2027'
                },
                {
-                 name:'jesus',
+                 name:'BBVA gray',
                  amount:400000,
-                 email:'jesus@gmail.com'
+                 yearExpiration:'2022'
                },
                {
-                 name:'renzo',
+                 name:'BBVA nomina',
                  amount:90000,
-                 email:'renzo@gmail.com'
+                 yearExpiration:'2023'
                }
              ]
            },
 
-           clientsFilter:{
+           accountsFilter:{
              type:Array,
              value:[]
+           },
+
+           user:{
+             type:Object,
+             value:{
+               name:'Yhoshua',
+               email:'yhoshua8a@gmail'
+             }
            }
         };
       }
@@ -83,12 +92,21 @@
         });
       }
 
+      ready(){
+        super.ready()
+        console.log("REady", this.$.title);
+        this.$.title.style.color = 'rgb(0,0,200)';
+      }
+
       _searchByAmount(amount){
-          const filter = this.clients.filter( client => client.amount >= parseInt(amount))
+
+        this.user.email = "otro@email"
+        this.notifyPath('user.email');
+          const filter = this.accounts.filter( acount => acount.amount >= parseInt(amount))
 
           console.log("filter", filter)
 
-          this.clientsFilter = filter
+          this.accountsFilter = filter
       }
 
     }

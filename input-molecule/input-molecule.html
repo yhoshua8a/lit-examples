@@ -5,9 +5,11 @@
       :host {
         display: block;
       }
-    </style>
-    <h2>Buscar: [[inputValue]]</h2>
 
+    </style>
+    
+    <h2 id="title">Buscar: [[inputValue]]</h2>
+    
     <input type="text" value="{{inputValue::input}}">
     <!--En LitElement <input type="text" value="this.inputValue" @input=" (e)=> { this.inputValue = e.target.value}"> -->
 
@@ -43,13 +45,18 @@
         };
       }
 
+      ready(){
+        super.ready();
+        this.$.title.style.color = 'blue';
+        console.log(this.$.title)
+      }
 
       _observerInputValue(newValue, old){
          console.log('observer input', newValue, old)
          this.fire('input-molecule-chnage', {newValue, old})
       }
 
-      _handleClickButton(){
+      _handleClickButton(event){
         console.log("Click", this.inputValue);
         this.fire('input-molecule-click-button', {value: this.inputValue})
       }
