@@ -1,0 +1,75 @@
+<link rel="import" href="../card-info/card-info.html" />
+<dom-module id="list-component">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <template is="dom-if" if="[[_isEmptyList]]">
+      <p>No hay datos que mostrar.</p>
+    </template>
+
+    <div on-click="_handleClickClient">
+      <template is="dom-repeat" items="[[list]]">
+        <card-info data-client$="[[index]]">
+          <span slot="title" data-client$="[[index]]"
+            >Nombre: [[item.name]]</span
+          >
+          <span slot="description" data-client$="[[index]]"
+            >Saldo: [[item.amount]]</span
+          >
+        </card-info>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    /**
+     * `input-molecule`
+     *
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class ListComponent extends Polymer.Element {
+      static get is() {
+        return "list-component";
+      }
+
+      static get properties() {
+        return {
+          list: {
+            type: Array,
+            value: [],
+            notify: true,
+            observer: "changeList",
+          },
+          _isEmptyList: {
+            type: Boolean,
+          },
+        };
+      }
+
+      changeList() {
+        this._isEmptyList = this.list.length === 0;
+      }
+
+      _handleClickClient(e) {
+        console.log("selected", e.target);
+
+        const index = e.target.getAttribute('data-client')
+
+        this.dispatchEvent(new CustomEvent('list-component-selected', {
+            bubbles:true,
+            composed:true,
+            detail:this.list[index]
+        }));
+      }
+    }
+
+    window.customElements.define(ListComponent.is, ListComponent);
+  </script>
+</dom-module>

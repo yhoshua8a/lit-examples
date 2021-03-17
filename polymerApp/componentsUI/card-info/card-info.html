@@ -1,0 +1,58 @@
+
+<dom-module id="card-info">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .section{
+          border:2px solid black;
+          box-shadow: 2px 4px gray;
+          padding:16px;
+          box-sizing: border-box;
+          display:flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
+          margin-top:16px;
+          margin-bottom:16px;
+      }
+    </style>
+
+
+<section class="section">
+      <slot name="title"></slot>
+      <slot name="description"></slot>
+</section>
+ 
+    
+  </template>
+
+  <script>
+    /**
+     * `input-molecule`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class CardInfo extends Polymer.Element {
+      static get is() { return 'card-info'; }
+
+      static get properties() {
+        return { 
+            list:{
+                type:Array,
+                value:[]
+            }
+         
+        };
+      }
+
+    }
+
+    window.customElements.define(CardInfo.is, CardInfo);
+  </script>
+</dom-module>

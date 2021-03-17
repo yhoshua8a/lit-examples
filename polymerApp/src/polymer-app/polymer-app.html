@@ -1,0 +1,98 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../componentsUI/input-molecule/input-molecule.html">
+<link rel="import" href="../../componentsUI/list-component/list-component.html">
+
+<dom-module id="polymer-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Bienvenido!</h2>
+    <input-molecule></input-molecule>
+
+    <list-component list="[[clientsFilter]]"></list-component>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class PolymerApp extends Polymer.Element {
+      static get is() { return 'polymer-app'; }
+      static get properties() {
+        return {
+           clients:{
+             type:Array,
+             value:[
+               {
+                 name:'Yhoshua',
+                 amount:20000,
+                 email:'yhoshua@gmail.com'
+               },
+               {
+                 name:'David',
+                 amount:50000,
+                 email:'david@gmail.com'
+               },
+               {
+                 name:'samuel',
+                 amount:200000,
+                 email:'samuel@gmail.com'
+               },
+               {
+                 name:'vladimir',
+                 amount:70000,
+                 email:'vladimir@gmail.com'
+               },
+               {
+                 name:'jesus',
+                 amount:400000,
+                 email:'jesus@gmail.com'
+               },
+               {
+                 name:'renzo',
+                 amount:90000,
+                 email:'renzo@gmail.com'
+               }
+             ]
+           },
+
+           clientsFilter:{
+             type:Array,
+             value:[]
+           }
+        };
+      }
+
+
+      connectedCallback(){
+        super.connectedCallback();
+
+        this.addEventListener('input-molecule-click-button', (e) => {
+          console.log("click out 2", parseInt(e.detail.value))
+          this._searchByAmount(e.detail.value);
+        });
+
+
+        this.addEventListener('list-component-selected', (e) => {
+          console.log("seleccionado", e.detail)
+        
+        });
+      }
+
+      _searchByAmount(amount){
+          const filter = this.clients.filter( client => client.amount >= parseInt(amount))
+
+          console.log("filter", filter)
+
+          this.clientsFilter = filter
+      }
+
+    }
+
+    window.customElements.define(PolymerApp.is, PolymerApp);
+  </script>
+</dom-module>

@@ -1,3 +1,4 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
 
 <dom-module id="input-molecule">
   <template>
@@ -8,7 +9,7 @@
     </style>
     <h2>Buscar: [[inputValue]]</h2>
 
-    <input type="text" value="{{inputValue::input}}">
+    <input type="number" value="{{inputValue::input}}">
     <!--En LitElement <input type="text" value="this.inputValue" @input=" (e)=> { this.inputValue = e.target.value}"> -->
 
     <button on-click="_handleClickButton">[[btnText]]</button>
@@ -33,7 +34,7 @@
         return {
           inputValue: {
             type: String,
-            value: 'busca',
+            value: '',
             observer: '_observerInputValue'
           },
           btnText:{
@@ -42,7 +43,6 @@
           }
         };
       }
-
 
       _observerInputValue(newValue, old){
          console.log('observer input', newValue, old)
@@ -54,11 +54,11 @@
         this.fire('input-molecule-click-button', {value: this.inputValue})
       }
 
-      fire(event ='input-molecule-default', detail = {otro:'asdfa'}){
+      fire(event='input-molecule-default', detail = {}){
           this.dispatchEvent(new CustomEvent(`${event}`, {
             bubbles:true,
             composed:true,
-            detail:'saasaas'
+            detail
           }))
       }
 
