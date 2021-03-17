@@ -1,0 +1,26 @@
+{
+  "name": "open-component",
+  "version": "0.0.0",
+  "description": "Webcomponent open-component following open-wc recommendations",
+  "author": "open-component",
+  "license": "MIT",
+  "main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "start": "web-dev-server",
+    "test": "web-test-runner --coverage",
+    "test:watch": "web-test-runner --watch",
+    "storybook": "web-dev-server -c .storybook/server.mjs",
+    "storybook:build": "build-storybook"
+  },
+  "dependencies": {
+    "lit-html": "^1.3.0",
+    "lit-element": "^2.4.0"
+  },
+  "devDependencies": {
+    "@web/dev-server": "^0.1.8",
+    "@web/test-runner": "^0.12.16",
+    "@open-wc/testing": "^2.5.32",
+    "@web/dev-server-storybook": "^0.3.5"
+  }
+}
